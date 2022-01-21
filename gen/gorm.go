@@ -74,7 +74,9 @@ func genMessageToPBMethods(g *protogen.GeneratedFile, f *fileInfo, m *messageInf
 		name := field.GoName
 		switch goType {
 		case "*time.Time":
+			g.P("if m.", name, "!= nil {")
 			g.P("to.", name, "=", field.Message.GoIdent.GoImportPath.Ident("New"), "(*m.", name, ")")
+			g.P("}")
 		// case "*gorm.DeletedAt":
 		// 	g.P(`deletedAtValue, _ := o.DeletedAt.Value()`)
 		// 	g.P(`if deletedAt, ok := deletedAtValue.(time.Time); ok {`)
@@ -113,10 +115,11 @@ func genMessageToGORMMethods(g *protogen.GeneratedFile, f *fileInfo, m *messageI
 		name := field.GoName
 		switch goType {
 		case "*time.Time":
-
+			g.P("if m.Get", name, "() != nil {")
 			g.P(name, ":= m.Get", name, "().AsTime()")
 			g.P("to.", name, "=&", name)
-		// case "*gorm.DeletedAt":
+			g.P("}")
+			// case "*gorm.DeletedAt":
 		// 	g.P(`deletedAtValue, _ := o.DeletedAt.Value()`)
 		// 	g.P(`if deletedAt, ok := deletedAtValue.(time.Time); ok {`)
 		// 	g.P(`value.DeletedAt = timestamppb.New(deletedAt)`)
