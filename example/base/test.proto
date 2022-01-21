@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "options/gorm.proto";
+import "types/types.proto";
+
+package conf2;
+
+option go_package = "github.com/mozyy/empty-news/proto/pbconf2;pbconf2";
+
+message Config {
+  option (gorm.ormable) = true;
+	uint32 ID = 1 [(gorm.tag) = "primaryKey"]; // ID
+  google.protobuf.Timestamp updated_at = 5; // updated_at
+  google.protobuf.Timestamp created_at = 2; // created_at
+  types.DeletedAt deleted_at = 3 [(gorm.tag) = "index"]; // deleted_at
+  // name
+  string name = 4; // google.protobuf.Timestamp created_at = 2;
+  // oneof test_oneof {
+  //   string name_first = 8;
+  //   string name_last = 9;
+  // }
+  Config2 config = 7;
+  uint32 configID = 8;
+}
+
+message Config2 {
+  option (gorm.ormable) = true;
+	uint32 ID = 1 [(gorm.tag) = "primaryKey"]; // ID
+  google.protobuf.Timestamp updated_at = 5; // updated_at
+  google.protobuf.Timestamp created_at = 2; // created_at
+  types.DeletedAt deleted_at = 3 [(gorm.tag) = "index"]; // deleted_at
+  string type = 6;
+}
+
+message User  {
+  option (gorm.ormable) = true;
+	uint32 ID = 1 [(gorm.tag) = "primaryKey"];
+  google.protobuf.Timestamp updated_at = 5;
+  google.protobuf.Timestamp created_at = 2;
+  types.DeletedAt deleted_at = 3 [(gorm.tag) = "index"];
+  repeated CreditCard credit_card = 6;
+  CreditCard credit_card_signal = 8;
+  string name = 7;
+  repeated User user = 9 [(gorm.tag) = "many2many:user_friend"];
+}
+
+message CreditCard  {
+  option (gorm.ormable) = true;
+	uint32 ID = 1 [(gorm.tag) = "primaryKey"];
+  google.protobuf.Timestamp updated_at = 5;
+  google.protobuf.Timestamp created_at = 2;
+  types.DeletedAt deleted_at = 3 [(gorm.tag) = "index"];
+  string number = 6;
+  uint32 userGORMID = 7;
+}
