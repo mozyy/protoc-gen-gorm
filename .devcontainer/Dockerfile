@@ -38,3 +38,9 @@ ARG PROTOC_ZIP=protoc-${PROTOC_VERSION}-linux-x86_64.zip
 RUN curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/${PROTOC_ZIP} && \
     unzip $PROTOC_ZIP -d ~/.local && \
     rm -f $PROTOC_ZIP
+
+ARG PROTOC_WEB_VERSION=1.3.1
+ARG PROTOC_WEB_ZIP=protoc-gen-grpc-web-${PROTOC_WEB_VERSION}-linux-x86_64
+
+RUN curl -L -o /usr/local/bin/protoc-gen-grpc-web https://github.com/grpc/grpc-web/releases/download/${PROTOC_WEB_VERSION}/${PROTOC_WEB_ZIP} && \
+    chmod +x /usr/local/bin/protoc-gen-grpc-web
