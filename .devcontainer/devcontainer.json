@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.195.0/containers/javascript-node
 {
   "name": "ProtocGenGorm",
-  "image": "mozyy/empty-dev-container:1.0.8",
+  "image": "mozyy/empty-dev-container:1.0.9",
   "runArgs": ["--init"],
   "mounts": [
     "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
