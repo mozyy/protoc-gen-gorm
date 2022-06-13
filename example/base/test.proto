@@ -7,6 +7,7 @@ import "types/types.proto";
 package conf2;
 
 option go_package = "github.com/mozyy/empty-news/proto/pbconf2;pbconf2";
+option (gorm.table_prefix) = "oauth_";
 
 message Config {
   option (gorm.ormable) = true;
